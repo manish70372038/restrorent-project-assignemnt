@@ -13,11 +13,21 @@ const reservationRoutes = require('./routes/reservationRoutes');
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_ORIGIN || '*',
-  })
-);
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://restrorent-project-assignemnt-7vru.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Health check
