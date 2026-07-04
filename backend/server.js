@@ -15,7 +15,8 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://restrorent-project-assignemnt-7vru.vercel.app'
+  'https://restrorent-project-assignemnt-7vru.vercel.app',
+  'https://restrorent-project-assignemnt-u5l5.vercel.app'
 ];
 
 app.use(cors({
