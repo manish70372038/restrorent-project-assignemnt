@@ -24,6 +24,11 @@ const allowedOrigins = [
   'https://restrorent-project-assignemnt-krwu.vercel.app'
 ];
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://restrorent-project-assignemnt.vercel.app'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
