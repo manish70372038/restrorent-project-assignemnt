@@ -1,6 +1,7 @@
-const dns = require("dns")
-dns.setServers(['8.8.8.8', '8.8.4.4']);
 require('dotenv').config();
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']); // Google DNS — fixes MongoDB Atlas SRV lookup issues on some networks
+
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
@@ -15,31 +16,22 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://restrorent-project-assignemnt-7vru.vercel.app',
-  'https://restrorent-project-assignemnt-u5l5.vercel.app'
+  'https://restrorent-project-assignemnt.vercel.app',
 ];
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://restrorent-project-assignemnt-krwu.vercel.app'
-];
-
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://restrorent-project-assignemnt.vercel.app'
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log('Blocked CORS origin:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log('Blocked CORS origin:', origin);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Health check
