@@ -19,11 +19,17 @@ const allowedOrigins = [
   'https://restrorent-project-assignemnt-u5l5.vercel.app'
 ];
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://restrorent-project-assignemnt-krwu.vercel.app'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.log('Blocked CORS origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
